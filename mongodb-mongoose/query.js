@@ -32,14 +32,18 @@ const user1 = await new User({ name: 'Mane', age: 29, status: 'active'})
     console.log('created :', user1)
 }
 // deletes User
-const deleteuser = async () => {
+const deleteUser = async () => {
     const deleted = await User.deleteOne({ name: 'Sunny'})
     console.log(deleted)
+  }
+  const updateUser = async () => {
+    const updated = await User.updateOne({ name: 'Lizzy', age: 29, status: 'inactive' })
+    console.log(updated)
   }
 
 const run = async() => {
     // await findUsers()
-    await findAuser()
+    // await findAuser()
     // await createUser()
     // await updateUser()
     // await deleteUser()
@@ -48,3 +52,5 @@ const run = async() => {
   
   
   run()
+
+  
