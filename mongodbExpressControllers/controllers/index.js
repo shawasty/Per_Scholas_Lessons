@@ -17,7 +17,7 @@ async function creatLambDish ( req,res){
 
     }
 } 
-
+//GET
 async function getAllLambDishes(req,res){
     try{
         const lambDishes = await LambDish.find()
@@ -27,8 +27,42 @@ async function getAllLambDishes(req,res){
         return res.status(500).send(error.message);
     }
 }
+// UPDATE
+const updateLambDish =  (req, res) => {
+    try {
+      const { id } = req.params
+     LambDish.findByIdAndUpdate(id, req.body, { new: true }, (err, lambDish) => {
+       //debugging
+        if (err !== null) {
+          console.log(err, 'error')
+          res.status(404).send(err.message)
+        } else {
+          console.log(lambDish)
+          res.json(lambDish)
+        }
+      })
+    } catch (error) {
+     return  res.status(500).send(error.message)
+    }
+  }
+  async function deleteLambDish(req, res) {
+    try {
+      const { id } = req.params;
+      const deleted = await LambDish.findByIdAndDelete(id)
+      if (deleted) {
+        return res.status(200).send("dish deleted");
+      }
+      throw new Error("dish not found");
+    } catch (error) {
+      return res.status(500).send(error.message);
+    }
+  }
+  
 
-module.exports ={
+
+module.exports = {
     creatLambDish,
     getAllLambDishes,
+    updateLambDish,
+    deleteLambDish,
 }
